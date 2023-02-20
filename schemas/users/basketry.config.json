@@ -1,0 +1,12 @@
+{
+  "source": "schemas/users/users.oas3.json",
+  "parser": "@basketry/openapi-3",
+  "rules": [
+    "@basketry/rules/lib/array-parameter-length",
+    "@basketry/rules/lib/description",
+    "@basketry/rules/lib/http-status",
+    "@basketry/rules/lib/relay-pagination",
+    "@basketry/rules/lib/response-envelope",
+    "@basketry/rules/lib/string-id"
+  ]
+}

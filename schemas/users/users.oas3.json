@@ -1,0 +1,327 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "User Service",
+    "version": "1.0.0",
+    "description": "Example user service to demonstrate the features of Basketry",
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "paths": {
+    "/users": {
+      "get": {
+        "operationId": "getUsers",
+        "description": "Gets users",
+        "parameters": [
+          { "$ref": "#/components/parameters/first" },
+          { "$ref": "#/components/parameters/after" },
+          { "$ref": "#/components/parameters/last" },
+          { "$ref": "#/components/parameters/before" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/usersResponse" }
+        }
+      },
+      "post": {
+        "operationId": "createUser",
+        "description": "Creates a user",
+        "requestBody": {
+          "description": "The new user",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/newUser" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "$ref": "#/components/responses/userResponse" }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "parameters": [
+        {
+          "name": "userId",
+          "description": "A user ID",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "operationId": "getUser",
+        "description": "Gets a user",
+        "responses": {
+          "200": { "$ref": "#/components/responses/userResponse" }
+        }
+      },
+      "patch": {
+        "operationId": "updateUser",
+        "description": "Updates a user",
+        "requestBody": {
+          "description": "The user update",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/userUpdate" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/userResponse" }
+        }
+      },
+      "delete": {
+        "operationId": "removeUser",
+        "description": "Removes a user",
+        "responses": {
+          "200": { "$ref": "#/components/responses/userResponse" }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "first": {
+        "name": "first",
+        "description": "The number of items to return after the supplied cursor, or from the start of the set if no cursor is supplied.",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "after": {
+        "name": "after",
+        "description": "A cursor",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "last": {
+        "name": "last",
+        "description": "The number of items to return before the supplied cursor, or from the end of the set if no cursor is supplied.",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "before": {
+        "name": "before",
+        "description": "A cursor",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "responses": {
+      "userResponse": {
+        "description": "success",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "A response that contains a single user",
+              "required": ["errors"],
+              "properties": {
+                "data": { "$ref": "#/components/schemas/user" },
+                "errors": {
+                  "type": "array",
+                  "description": "Any errors produced during method execution",
+                  "items": { "$ref": "#/components/schemas/error" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "usersResponse": {
+        "description": "success",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "A response that contains a single user",
+              "required": ["data", "errors", "pageInfo"],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "description": "Any errors produced during method execution",
+                  "items": { "$ref": "#/components/schemas/user" }
+                },
+                "errors": {
+                  "type": "array",
+                  "description": "Any errors produced during method execution",
+                  "items": { "$ref": "#/components/schemas/error" }
+                },
+                "pageInfo": { "$ref": "#/components/schemas/pageInfo" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "errorCode": {
+        "description": "An application-specific error code, expressed as a string value",
+        "type": "string",
+        "enum": ["badParameter", "badRequest", "forbidden", "notFound"]
+      },
+      "error": {
+        "type": "object",
+        "description": "A standard error",
+        "required": ["code", "status"],
+        "properties": {
+          "id": {
+            "description": "A unique identifier for this particular occurrence of the problem.",
+            "type": "string"
+          },
+          "code": { "$ref": "#/components/schemas/errorCode" },
+          "status": {
+            "description": "The HTTP status code applicable to this problem.",
+            "type": "integer"
+          },
+          "title": {
+            "description": "A short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.",
+            "type": "string"
+          },
+          "detail": {
+            "description": "a human-readable explanation specific to this occurrence of the problem. Like `title`, this field’s value can be localized.",
+            "type": "string"
+          },
+          "pointer": {
+            "description": "A JSON Pointer (RFC6901) to the associated entity in the request document (e.g. `/data` for a primary data object, or `/data/attributes/title` for a specific attribute).",
+            "type": "string"
+          },
+          "parameter": {
+            "description": "A string indicating which method parameter caused the error.",
+            "type": "string"
+          }
+        }
+      },
+      "pageInfo": {
+        "description": "Implements the [GraphQL Cursor Connection Specification](https://relay.dev/graphql/connections.htm#sec-undefined.PageInfo) Page Info obejct.",
+        "type": "object",
+        "required": ["hasPreviousPage", "hasNextPage"],
+        "properties": {
+          "hasPreviousPage": {
+            "description": "Indicates whether more items exist prior to the set defined by the client's arguments.",
+            "type": "boolean"
+          },
+          "hasNextPage": {
+            "description": "Indicates whether more items exist following the set defined by the client's arguments.",
+            "type": "boolean"
+          },
+          "startCursor": {
+            "description": "Cursor corresponding to the first item in the resulting set if any items were returned; otherwise, undefined",
+            "type": "string"
+          },
+          "endCursor": {
+            "description": "Cursor corresponding to the last item in the resulting set if any items were returned; otherwise, undefined",
+            "type": "string"
+          }
+        }
+      },
+      "user": {
+        "type": "object",
+        "description": "A user",
+        "required": [
+          "id",
+          "preferredFirstName",
+          "legalFirstName",
+          "lastName",
+          "preferredFullName",
+          "legalFullName"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique, non-sequential identifier for this user"
+          },
+          "avatarUri": {
+            "type": "string",
+            "description": "Absolute URI to an image"
+          },
+          "preferredFirstName": {
+            "type": "string",
+            "description": "The name or nickname the user prefers which may differ from their given legal first name"
+          },
+          "legalFirstName": {
+            "type": "string",
+            "description": "The user's given legal first name"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "The user's given legal last name"
+          },
+          "preferredFullName": {
+            "type": "string",
+            "description": "The combined preferred first name and last name"
+          },
+          "legalFullName": {
+            "type": "string",
+            "description": "The combined legal first name and last name"
+          }
+        }
+      },
+      "userUpdate": {
+        "type": "object",
+        "description": "A user",
+        "properties": {
+          "avatarUri": {
+            "type": "string",
+            "description": "Absolute URI to an image"
+          },
+          "preferredFirstName": {
+            "type": "string",
+            "description": "The name or nickname the user prefers which may differ from their given legal first name"
+          },
+          "legalFirstName": {
+            "type": "string",
+            "description": "The user's given legal first name"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "The user's given legal last name"
+          }
+        }
+      },
+      "newUser": {
+        "type": "object",
+        "description": "A user",
+        "required": ["legalFirstName", "lastName"],
+        "properties": {
+          "avatarUri": {
+            "type": "string",
+            "description": "Absolute URI to an image"
+          },
+          "preferredFirstName": {
+            "type": "string",
+            "description": "The name or nickname the user prefers which may differ from their given legal first name"
+          },
+          "legalFirstName": {
+            "type": "string",
+            "description": "The user's given legal first name"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "The user's given legal last name"
+          }
+        }
+      }
+    }
+  }
+}
