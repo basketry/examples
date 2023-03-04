@@ -39,6 +39,6 @@
     "@basketry/ir": "^0.0.1",
     "@basketry/openapi-3": "^0.0.2",
     "@basketry/rules": "^0.0.9",
-    "basketry": "^0.0.35"
+    "basketry": "^0.0.36"
   }
 }
