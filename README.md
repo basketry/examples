@@ -1,21 +1,20 @@
 # Examples
 
-Basketry examples
+The repository contains examples of service definition files. These files are used by Basketry documentation to demonstrate the functionality of the Basketry ecosystem.
 
-## How to:
+All of the services are MIT licensed. Feel free to borrow what you like when designing APIs.
 
-### Run this project
+## User service
 
-1.  Build the code: `npm run build`
-1.  Run it! `npm start`
+This service defines very basic CRUD methods for users.
 
-Note that the `lint` script is run prior to `build`. Auto-fixable linting or formatting errors may be fixed by running `npm run fix`.
+[See the schema](schemas/users/users.oas3.json)
 
-### Create and run tests
+## Contacts service
 
-1.  Add tests by creating files with the `.tests.ts` suffix
-1.  Run the tests: `npm t`
-1.  Test coverage can be viewed at `/coverage/lcov-report/index.html`
+This service defines a simple address book API for tracking names and contact info.
+
+[See the schema](schemas/contacts/contacts.oas3.json)
 
 ---
 
