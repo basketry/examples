@@ -1,0 +1,1177 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Contacts",
+    "version": "1.0.0",
+    "description": "Example contact list to demonstrate the features of Basketry",
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "paths": {
+    "/contacts": {
+      "get": {
+        "operationId": "getContacts",
+        "description": "Gets contacts",
+        "tags": ["contacts"],
+        "parameters": [
+          {
+            "name": "query",
+            "description": "Query string",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string" }
+          },
+          { "$ref": "#/components/parameters/first" },
+          { "$ref": "#/components/parameters/after" },
+          { "$ref": "#/components/parameters/last" },
+          { "$ref": "#/components/parameters/before" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/contacts" }
+        }
+      },
+      "post": {
+        "operationId": "createContact",
+        "description": "Creates a new contact",
+        "tags": ["contacts"],
+        "x-codegen-request-body-name": "contact",
+        "requestBody": {
+          "description": "The new conact",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/newContact" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "$ref": "#/components/responses/contact" }
+        }
+      }
+    },
+    "/contacts/{contactId}": {
+      "parameters": [{ "$ref": "#/components/parameters/pathContactId" }],
+      "get": {
+        "operationId": "getContact",
+        "description": "Gets a contact",
+        "tags": ["contacts"],
+        "responses": {
+          "200": { "$ref": "#/components/responses/contact" }
+        }
+      },
+      "patch": {
+        "operationId": "updateContact",
+        "description": "Updates a contact",
+        "tags": ["contacts"],
+        "x-codegen-request-body-name": "contact",
+        "requestBody": {
+          "description": "The contact update",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/contactUpdate" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/contact" }
+        }
+      },
+      "delete": {
+        "operationId": "removeContact",
+        "description": "Removes a contact",
+        "tags": ["contacts"],
+        "responses": {
+          "200": { "$ref": "#/components/responses/contact" }
+        }
+      }
+    },
+    "/contacts/{contactId}/phones": {
+      "parameters": [{ "$ref": "#/components/parameters/pathContactId" }],
+      "get": {
+        "operationId": "getContactPhones",
+        "description": "Gets phone numbers for a contact",
+        "tags": ["phones"],
+        "parameters": [
+          { "$ref": "#/components/parameters/first" },
+          { "$ref": "#/components/parameters/after" },
+          { "$ref": "#/components/parameters/last" },
+          { "$ref": "#/components/parameters/before" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/phones" }
+        }
+      }
+    },
+    "/contacts/{contactId}/emails": {
+      "parameters": [{ "$ref": "#/components/parameters/pathContactId" }],
+      "get": {
+        "operationId": "getContactEmails",
+        "description": "Gets email addresses for a contact",
+        "tags": ["emails"],
+        "parameters": [
+          { "$ref": "#/components/parameters/first" },
+          { "$ref": "#/components/parameters/after" },
+          { "$ref": "#/components/parameters/last" },
+          { "$ref": "#/components/parameters/before" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/emails" }
+        }
+      }
+    },
+    "/contacts/{contactId}/addresses": {
+      "parameters": [{ "$ref": "#/components/parameters/pathContactId" }],
+      "get": {
+        "operationId": "getContactAddresses",
+        "description": "Gets physical addresses for a contact",
+        "tags": ["addresses"],
+        "parameters": [
+          { "$ref": "#/components/parameters/first" },
+          { "$ref": "#/components/parameters/after" },
+          { "$ref": "#/components/parameters/last" },
+          { "$ref": "#/components/parameters/before" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/addresses" }
+        }
+      }
+    },
+    "/contacts/{contactId}/socials": {
+      "parameters": [{ "$ref": "#/components/parameters/pathContactId" }],
+      "get": {
+        "operationId": "getContactSocials",
+        "description": "Gets social profiles for a contact",
+        "tags": ["socials"],
+        "parameters": [
+          { "$ref": "#/components/parameters/first" },
+          { "$ref": "#/components/parameters/after" },
+          { "$ref": "#/components/parameters/last" },
+          { "$ref": "#/components/parameters/before" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/socials" }
+        }
+      }
+    },
+
+    "/phones": {
+      "post": {
+        "operationId": "createPhone",
+        "description": "Creates a new phone number",
+        "tags": ["phones"],
+        "x-codegen-request-body-name": "phone",
+        "requestBody": {
+          "description": "The new conact",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/newPhone" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "$ref": "#/components/responses/phones" }
+        }
+      }
+    },
+    "/phones/{phoneId}": {
+      "parameters": [{ "$ref": "#/components/parameters/pathPhoneId" }],
+      "get": {
+        "operationId": "getPhone",
+        "description": "Gets a phone number",
+        "tags": ["phones"],
+        "responses": {
+          "200": { "$ref": "#/components/responses/phone" }
+        }
+      },
+      "patch": {
+        "operationId": "updatePhone",
+        "description": "Updates a phone number",
+        "tags": ["phones"],
+        "x-codegen-request-body-name": "phone",
+        "requestBody": {
+          "description": "The phone number update",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/phoneUpdate" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/phone" }
+        }
+      },
+      "delete": {
+        "operationId": "removePhone",
+        "description": "Removes a phone number",
+        "tags": ["phones"],
+        "responses": {
+          "200": { "$ref": "#/components/responses/phone" }
+        }
+      }
+    },
+
+    "/emails": {
+      "post": {
+        "operationId": "createEmail",
+        "description": "Creates a new email address",
+        "tags": ["emails"],
+        "x-codegen-request-body-name": "email",
+        "requestBody": {
+          "description": "The new email address",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/newEmail" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "$ref": "#/components/responses/email" }
+        }
+      }
+    },
+    "/emails/{emailId}": {
+      "parameters": [{ "$ref": "#/components/parameters/pathEmailId" }],
+      "get": {
+        "operationId": "getEmail",
+        "description": "Gets a email address",
+        "tags": ["emails"],
+        "responses": {
+          "200": { "$ref": "#/components/responses/email" }
+        }
+      },
+      "patch": {
+        "operationId": "updateEmail",
+        "description": "Updates a email address",
+        "tags": ["emails"],
+        "x-codegen-request-body-name": "email",
+        "requestBody": {
+          "description": "The email address update",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/emailUpdate" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/email" }
+        }
+      },
+      "delete": {
+        "operationId": "removeEmail",
+        "description": "Removes a email address",
+        "tags": ["emails"],
+        "responses": {
+          "200": { "$ref": "#/components/responses/email" }
+        }
+      }
+    },
+
+    "/addresses": {
+      "post": {
+        "operationId": "createAddress",
+        "description": "Creates a new physical address",
+        "tags": ["addresses"],
+        "x-codegen-request-body-name": "address",
+        "requestBody": {
+          "description": "The new physical address",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/newAddress" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "$ref": "#/components/responses/address" }
+        }
+      }
+    },
+    "/addresses/{addressId}": {
+      "parameters": [{ "$ref": "#/components/parameters/pathAddressId" }],
+      "get": {
+        "operationId": "getAddress",
+        "description": "Gets a physical address",
+        "tags": ["addresses"],
+        "responses": {
+          "200": { "$ref": "#/components/responses/address" }
+        }
+      },
+      "patch": {
+        "operationId": "updateAddress",
+        "description": "Updates a physical address",
+        "tags": ["addresses"],
+        "x-codegen-request-body-name": "address",
+        "requestBody": {
+          "description": "The physical address update",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/addressUpdate" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/address" }
+        }
+      },
+      "delete": {
+        "operationId": "removeAddress",
+        "description": "Removes a physical address",
+        "tags": ["addresses"],
+        "responses": {
+          "200": { "$ref": "#/components/responses/address" }
+        }
+      }
+    },
+
+    "/socials": {
+      "post": {
+        "operationId": "createSocial",
+        "description": "Creates a new social profile",
+        "tags": ["socials"],
+        "x-codegen-request-body-name": "social",
+        "requestBody": {
+          "description": "The new social profile",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/newSocial" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "$ref": "#/components/responses/social" }
+        }
+      }
+    },
+    "/socials/{socialId}": {
+      "parameters": [{ "$ref": "#/components/parameters/pathSocialId" }],
+      "get": {
+        "operationId": "getSocial",
+        "description": "Gets a social profile",
+        "tags": ["socials"],
+        "responses": {
+          "200": { "$ref": "#/components/responses/social" }
+        }
+      },
+      "patch": {
+        "operationId": "updateSocial",
+        "description": "Updates a social profile",
+        "tags": ["socials"],
+        "x-codegen-request-body-name": "social",
+        "requestBody": {
+          "description": "The social profile update",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/socialUpdate" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/social" }
+        }
+      },
+      "delete": {
+        "operationId": "removeSocial",
+        "description": "Removes a social profile",
+        "tags": ["socials"],
+        "responses": {
+          "200": { "$ref": "#/components/responses/social" }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "first": {
+        "name": "first",
+        "description": "The number of items to return after the supplied cursor, or from the start of the set if no cursor is supplied.",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "after": {
+        "name": "after",
+        "description": "A cursor",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "last": {
+        "name": "last",
+        "description": "The number of items to return before the supplied cursor, or from the end of the set if no cursor is supplied.",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "before": {
+        "name": "before",
+        "description": "A cursor",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "pathContactId": {
+        "name": "contactId",
+        "description": "A contact ID",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "pathPhoneId": {
+        "name": "phoneId",
+        "description": "A phone number ID",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "pathEmailId": {
+        "name": "emailId",
+        "description": "A email address ID",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "pathAddressId": {
+        "name": "addressId",
+        "description": "A physical address ID",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "pathSocialId": {
+        "name": "socialId",
+        "description": "A social profile ID",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "responses": {
+      "contact": {
+        "description": "success",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "A response that contains a single contact",
+              "required": ["errors"],
+              "properties": {
+                "data": { "$ref": "#/components/schemas/contact" },
+                "errors": {
+                  "type": "array",
+                  "description": "Any errors produced during method execution",
+                  "items": { "$ref": "#/components/schemas/error" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "contacts": {
+        "description": "success",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "A response that contains a collection of contacts",
+              "required": ["data", "errors", "pageInfo"],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "description": "A collcetion of contacts",
+                  "items": { "$ref": "#/components/schemas/contact" }
+                },
+                "errors": {
+                  "type": "array",
+                  "description": "Any errors produced during method execution",
+                  "items": { "$ref": "#/components/schemas/error" }
+                },
+                "pageInfo": { "$ref": "#/components/schemas/pageInfo" }
+              }
+            }
+          }
+        }
+      },
+
+      "phone": {
+        "description": "success",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "A response that contains a single phone number",
+              "required": ["errors"],
+              "properties": {
+                "data": { "$ref": "#/components/schemas/phone" },
+                "errors": {
+                  "type": "array",
+                  "description": "Any errors produced during method execution",
+                  "items": { "$ref": "#/components/schemas/error" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "phones": {
+        "description": "success",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "A response that contains a collection of phone numbers",
+              "required": ["data", "errors", "pageInfo"],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "description": "A collcetion of contacts",
+                  "items": { "$ref": "#/components/schemas/phone" }
+                },
+                "errors": {
+                  "type": "array",
+                  "description": "Any errors produced during method execution",
+                  "items": { "$ref": "#/components/schemas/error" }
+                },
+                "pageInfo": { "$ref": "#/components/schemas/pageInfo" }
+              }
+            }
+          }
+        }
+      },
+
+      "email": {
+        "description": "success",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "A response that contains a single email address",
+              "required": ["errors"],
+              "properties": {
+                "data": { "$ref": "#/components/schemas/email" },
+                "errors": {
+                  "type": "array",
+                  "description": "Any errors produced during method execution",
+                  "items": { "$ref": "#/components/schemas/error" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "emails": {
+        "description": "success",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "A response that contains a collection of email addresses",
+              "required": ["data", "errors", "pageInfo"],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "description": "A collcetion of contacts",
+                  "items": { "$ref": "#/components/schemas/email" }
+                },
+                "errors": {
+                  "type": "array",
+                  "description": "Any errors produced during method execution",
+                  "items": { "$ref": "#/components/schemas/error" }
+                },
+                "pageInfo": { "$ref": "#/components/schemas/pageInfo" }
+              }
+            }
+          }
+        }
+      },
+
+      "address": {
+        "description": "success",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "A response that contains a single physical address",
+              "required": ["errors"],
+              "properties": {
+                "data": { "$ref": "#/components/schemas/address" },
+                "errors": {
+                  "type": "array",
+                  "description": "Any errors produced during method execution",
+                  "items": { "$ref": "#/components/schemas/error" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "addresses": {
+        "description": "success",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "A response that contains a collection of physical addresses",
+              "required": ["data", "errors", "pageInfo"],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "description": "A collcetion of contacts",
+                  "items": { "$ref": "#/components/schemas/address" }
+                },
+                "errors": {
+                  "type": "array",
+                  "description": "Any errors produced during method execution",
+                  "items": { "$ref": "#/components/schemas/error" }
+                },
+                "pageInfo": { "$ref": "#/components/schemas/pageInfo" }
+              }
+            }
+          }
+        }
+      },
+
+      "social": {
+        "description": "success",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "A response that contains a single social profile",
+              "required": ["errors"],
+              "properties": {
+                "data": { "$ref": "#/components/schemas/social" },
+                "errors": {
+                  "type": "array",
+                  "description": "Any errors produced during method execution",
+                  "items": { "$ref": "#/components/schemas/error" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "socials": {
+        "description": "success",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "A response that contains a collection of social profiles",
+              "required": ["data", "errors", "pageInfo"],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "description": "A collcetion of contacts",
+                  "items": { "$ref": "#/components/schemas/social" }
+                },
+                "errors": {
+                  "type": "array",
+                  "description": "Any errors produced during method execution",
+                  "items": { "$ref": "#/components/schemas/error" }
+                },
+                "pageInfo": { "$ref": "#/components/schemas/pageInfo" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "errorCode": {
+        "description": "An application-specific error code, expressed as a string value",
+        "type": "string",
+        "enum": [
+          "badParameter",
+          "badRequest",
+          "forbidden",
+          "notFound",
+          "serverError"
+        ]
+      },
+      "error": {
+        "type": "object",
+        "description": "A standard error",
+        "required": ["code", "status"],
+        "properties": {
+          "id": {
+            "description": "A unique identifier for this particular occurrence of the problem.",
+            "type": "string"
+          },
+          "code": { "$ref": "#/components/schemas/errorCode" },
+          "status": {
+            "description": "The HTTP status code applicable to this problem.",
+            "type": "integer"
+          },
+          "title": {
+            "description": "A short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.",
+            "type": "string"
+          },
+          "detail": {
+            "description": "a human-readable explanation specific to this occurrence of the problem. Like `title`, this field’s value can be localized.",
+            "type": "string"
+          },
+          "pointer": {
+            "description": "A JSON Pointer (RFC6901) to the associated entity in the request document (e.g. `/data` for a primary data object, or `/data/attributes/title` for a specific attribute).",
+            "type": "string"
+          },
+          "parameter": {
+            "description": "A string indicating which method parameter caused the error.",
+            "type": "string"
+          }
+        }
+      },
+      "pageInfo": {
+        "description": "Implements the [GraphQL Cursor Connection Specification](https://relay.dev/graphql/connections.htm#sec-undefined.PageInfo) Page Info obejct.",
+        "type": "object",
+        "required": ["hasPreviousPage", "hasNextPage"],
+        "properties": {
+          "hasPreviousPage": {
+            "description": "Indicates whether more items exist prior to the set defined by the client's arguments.",
+            "type": "boolean"
+          },
+          "hasNextPage": {
+            "description": "Indicates whether more items exist following the set defined by the client's arguments.",
+            "type": "boolean"
+          },
+          "startCursor": {
+            "description": "Cursor corresponding to the first item in the resulting set if any items were returned; otherwise, undefined",
+            "type": "string"
+          },
+          "endCursor": {
+            "description": "Cursor corresponding to the last item in the resulting set if any items were returned; otherwise, undefined",
+            "type": "string"
+          }
+        }
+      },
+
+      "contact": {
+        "type": "object",
+        "description": "A contact",
+        "required": ["id", "name"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique ID for this resource"
+          },
+          "name": {
+            "type": "string",
+            "description": "The full name of the contact",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "primaryPhoneId": {
+            "type": "string",
+            "description": "The primary phone number ID"
+          },
+          "primaryEmailId": {
+            "type": "string",
+            "description": "The primary email address ID"
+          }
+        }
+      },
+      "newContact": {
+        "type": "object",
+        "description": "A new contact",
+        "required": ["name"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The full name of the contact",
+            "minLength": 1,
+            "maxLength": 255
+          }
+        }
+      },
+      "contactUpdate": {
+        "type": "object",
+        "description": "An update to an existing contact",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The full name of the contact",
+            "minLength": 1,
+            "maxLength": 255
+          }
+        }
+      },
+
+      "phone": {
+        "type": "object",
+        "description": "A phone number",
+        "required": ["id", "contactId", "value", "primary"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique ID for this resource"
+          },
+          "contactId": {
+            "type": "string",
+            "description": "The ID of the associated contact"
+          },
+          "value": {
+            "type": "string",
+            "description": "The phone number expressed as a string",
+            "minLength": 5,
+            "maxLength": 15
+          },
+          "primary": {
+            "type": "boolean",
+            "description": "Indicates if this is the primary phone number"
+          }
+        }
+      },
+      "newPhone": {
+        "type": "object",
+        "description": "A new phone number",
+        "required": ["contactId", "value"],
+        "properties": {
+          "contactId": {
+            "type": "string",
+            "description": "The ID of the associated contact"
+          },
+          "value": {
+            "type": "string",
+            "description": "The phone number expressed as string",
+            "minLength": 5,
+            "maxLength": 15
+          },
+          "primary": {
+            "type": "boolean",
+            "description": "Indicates if the new phone number will be set as the contact primary phone number"
+          }
+        }
+      },
+      "phoneUpdate": {
+        "type": "object",
+        "description": "An update to an existing phone number",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "The phone number expressed as string",
+            "minLength": 5,
+            "maxLength": 15
+          },
+          "primary": {
+            "type": "boolean",
+            "description": "Indicates if the new phone number will be set as the contact primary phone number"
+          }
+        }
+      },
+
+      "email": {
+        "type": "object",
+        "description": "An email address",
+        "required": ["id", "contactId", "value", "primary"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique ID for this resource"
+          },
+          "contactId": {
+            "type": "string",
+            "description": "The ID of the associated contact"
+          },
+          "value": {
+            "type": "string",
+            "description": "The email address expressed as a string",
+            "minLength": 5,
+            "maxLength": 255
+          },
+          "primary": {
+            "type": "boolean",
+            "description": "Indicates if this is the primary email address"
+          }
+        }
+      },
+      "newEmail": {
+        "type": "object",
+        "description": "A new email address",
+        "required": ["contactId", "value"],
+        "properties": {
+          "contactId": {
+            "type": "string",
+            "description": "The ID of the associated contact"
+          },
+          "value": {
+            "type": "string",
+            "description": "The email address expressed as a string",
+            "minLength": 5,
+            "maxLength": 255
+          },
+          "primary": {
+            "type": "boolean",
+            "description": "Indicates if this is the primary email address"
+          }
+        }
+      },
+      "emailUpdate": {
+        "type": "object",
+        "description": "An update to an existing email address",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "The email address expressed as a string",
+            "minLength": 5,
+            "maxLength": 255
+          },
+          "primary": {
+            "type": "boolean",
+            "description": "Indicates if this is the primary email address"
+          }
+        }
+      },
+
+      "address": {
+        "type": "object",
+        "description": "A physical address",
+        "required": [
+          "id",
+          "contactId",
+          "line1",
+          "city",
+          "stateOrProvence",
+          "postalCode",
+          "country"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique ID for this resource"
+          },
+          "contactId": {
+            "type": "string",
+            "description": "The ID of the associated contact"
+          },
+          "line1": {
+            "type": "string",
+            "description": "Line 1",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "line2": {
+            "type": "string",
+            "description": "Line 2",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "city": {
+            "type": "string",
+            "description": "City",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "stateOrProvence": {
+            "type": "string",
+            "description": "State or provence",
+            "minLength": 2,
+            "maxLength": 255
+          },
+          "postalCode": {
+            "type": "string",
+            "description": "The postal code",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "country": {
+            "type": "string",
+            "description": "Country",
+            "minLength": 1,
+            "maxLength": 255
+          }
+        }
+      },
+      "newAddress": {
+        "type": "object",
+        "description": "A new physical address",
+        "required": [
+          "contactId",
+          "line1",
+          "city",
+          "stateOrProvence",
+          "postalCode",
+          "country"
+        ],
+        "properties": {
+          "contactId": {
+            "type": "string",
+            "description": "The ID of the associated contact"
+          },
+          "line1": {
+            "type": "string",
+            "description": "Line 1",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "line2": {
+            "type": "string",
+            "description": "Line 2",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "city": {
+            "type": "string",
+            "description": "City",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "stateOrProvence": {
+            "type": "string",
+            "description": "State or provence",
+            "minLength": 2,
+            "maxLength": 255
+          },
+          "postalCode": {
+            "type": "string",
+            "description": "The postal code",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "country": {
+            "type": "string",
+            "description": "Country",
+            "minLength": 1,
+            "maxLength": 255
+          }
+        }
+      },
+      "addressUpdate": {
+        "type": "object",
+        "description": "Am update to an existing physical address",
+        "properties": {
+          "line1": {
+            "type": "string",
+            "description": "Line 1",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "line2": {
+            "type": "string",
+            "description": "Line 2",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "city": {
+            "type": "string",
+            "description": "City",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "stateOrProvence": {
+            "type": "string",
+            "description": "State or provence",
+            "minLength": 2,
+            "maxLength": 255
+          },
+          "postalCode": {
+            "type": "string",
+            "description": "The postal code",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "country": {
+            "type": "string",
+            "description": "Country",
+            "minLength": 1,
+            "maxLength": 255
+          }
+        }
+      },
+
+      "social": {
+        "type": "object",
+        "description": "A social media profile",
+        "required": ["id", "contactId", "platform", "account"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique ID for this resource"
+          },
+          "contactId": {
+            "type": "string",
+            "description": "The ID of the associated contact"
+          },
+          "platform": {
+            "type": "string",
+            "description": "The name of the social platform",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "account": {
+            "type": "string",
+            "description": "The social account expressed as a string value",
+            "minLength": 1,
+            "maxLength": 255
+          }
+        }
+      },
+      "newSocial": {
+        "type": "object",
+        "description": "A new social media profile",
+        "required": ["plaform", "value"],
+        "properties": {
+          "platform": {
+            "type": "string",
+            "description": "The name of the social platform",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "account": {
+            "type": "string",
+            "description": "The social account expressed as a string value",
+            "minLength": 1,
+            "maxLength": 255
+          }
+        }
+      },
+      "socialUpdate": {
+        "type": "object",
+        "description": "An update to an existing social media profile",
+        "properties": {
+          "platform": {
+            "type": "string",
+            "description": "The name of the social platform",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "account": {
+            "type": "string",
+            "description": "The social account expressed as a string value",
+            "minLength": 1,
+            "maxLength": 255
+          }
+        }
+      }
+    }
+  }
+}
