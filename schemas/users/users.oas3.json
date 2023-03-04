@@ -20,12 +20,13 @@
           { "$ref": "#/components/parameters/before" }
         ],
         "responses": {
-          "200": { "$ref": "#/components/responses/usersResponse" }
+          "200": { "$ref": "#/components/responses/users" }
         }
       },
       "post": {
         "operationId": "createUser",
         "description": "Creates a user",
+        "x-codegen-request-body-name": "user",
         "requestBody": {
           "description": "The new user",
           "required": true,
@@ -36,7 +37,7 @@
           }
         },
         "responses": {
-          "201": { "$ref": "#/components/responses/userResponse" }
+          "201": { "$ref": "#/components/responses/user" }
         }
       }
     },
@@ -56,12 +57,13 @@
         "operationId": "getUser",
         "description": "Gets a user",
         "responses": {
-          "200": { "$ref": "#/components/responses/userResponse" }
+          "200": { "$ref": "#/components/responses/user" }
         }
       },
       "patch": {
         "operationId": "updateUser",
         "description": "Updates a user",
+        "x-codegen-request-body-name": "user",
         "requestBody": {
           "description": "The user update",
           "required": true,
@@ -72,14 +74,14 @@
           }
         },
         "responses": {
-          "200": { "$ref": "#/components/responses/userResponse" }
+          "200": { "$ref": "#/components/responses/user" }
         }
       },
       "delete": {
         "operationId": "removeUser",
         "description": "Removes a user",
         "responses": {
-          "200": { "$ref": "#/components/responses/userResponse" }
+          "200": { "$ref": "#/components/responses/user" }
         }
       }
     }
@@ -128,7 +130,7 @@
       }
     },
     "responses": {
-      "userResponse": {
+      "user": {
         "description": "success",
         "content": {
           "application/json": {
@@ -148,7 +150,7 @@
           }
         }
       },
-      "usersResponse": {
+      "users": {
         "description": "success",
         "content": {
           "application/json": {
